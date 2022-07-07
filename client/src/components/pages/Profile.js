@@ -73,45 +73,14 @@ const Profile = (props) => {
 
     }
 
-    const deletePost = (e) => {
-        var pid = e.target.value;
-        console.log(e.target.value);
-        fetchData("/post/delete",
-            {
-                pid
-            },
-            "DELETE")
-            .then((data) => {
-                if (!data.message) {
-                    console.log(data);
-                    var UserId = location.state.name;
-                    fetchData("/post/viewpost",
-                        {
-                            UserId
-                        },
-                        "POST")
-                        .then((info) => {
-                            console.log(info);
-                            if (!info.message) {
-                                navigate("/profile", { state: { name: UserId, data: info } });
-                            }
-                        })
-                        .catch((error) => {
-                            console.log(error)
-                        })
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
+    
 
     return (
         <div className="container mt-5 login">
             <h1 className="h1-main">{location.state.name}</h1>
             <h2>Your Posts</h2>
             {_data.map(cont => (
-                <li>{cont.pdate}, {cont.title}, {cont.description}  <button className="btn btn-primary btn-lg" id="postDelete" name="postDelete" value={cont._id} onClick={deletePost}>Delete</button>
+                <li>{cont.pdate}, {cont.title}, {cont.description}  
                     <br /></li>
             ))}
 
